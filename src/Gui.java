@@ -1,29 +1,30 @@
-import java.util.ArrayList;
 import shed.mbed.LCD;
+import java.util.ArrayList;
 
 public class Gui {
 
-    ArrayList<GuiTab> tabs;
-    LCD lcd;
-    String topLevelString;
+    private ArrayList<GuiTab> tabs;
+    private LCD lcd;
+    private String topLevelString = "";
 
     public Gui(ArrayList<GuiTab> tabs, LCD lcd)
     {
         this.tabs = tabs;
         this.lcd = lcd;
+        lcd.print(0,0,".");
     }
 
     public void displayTopLevel()
     {
-        lcd.print(0, 0, "boo");
+        lcd.print(0, 0, topLevelString);
         for(GuiTab tab : tabs){
-            topLevelString = "" + tab.getTitle() + "  ";
+            topLevelString = topLevelString + tab.getTitle() + "  ";
         }
     }
 
     public void selectTab(String title)
     {
-       String[] splitTabs = topLevelString.split(title);
-       topLevelString = splitTabs[0] + ">" + splitTabs[1];
+        topLevelString = topLevelString.replace(">", "");
+        topLevelString = topLevelString.replace(title, ">"+title);
     }
 }
